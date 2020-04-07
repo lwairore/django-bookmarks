@@ -9,11 +9,14 @@ def user_login(request):
         form = forms.LoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = authenticate(request, username=cd['username'], password=['password']) # hecks user credentials and returns a User object if they are right
+            user = authenticate(request,
+                                username=cd['username'],
+                                password=cd['password'])
             if user is not None:
                 if user.is_active:
-                    login(request, user) # sets the user in the current session.
-                    return HttpResponse('Authenticated successfully')
+                    login(request, user)
+                    return HttpResponse('Authenticated '\
+                                        'successfully')
                 else:
                     return HttpResponse('Disabled account')
             else:
