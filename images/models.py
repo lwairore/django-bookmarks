@@ -11,6 +11,7 @@ class Image(models.Model):
     image = models.ImageField(upload_to='images/%Y/%m/%d')
     description = models.TextField(blank=True)
     created = models.DateField(auto_now_add=True, db_index=True) # We use `bd_index=True` so that Django creates an index in the database for this field.
+    users_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='images_liked', blank=True)
     """
         Database indexes improve query performance. Consider setting db_index=True for fields that you frequently query using filter(), exclude(), or order_by(). ForeignKey fields or fields with unique=True imply the creation of an index. You can also use Meta.index_together to create indexes for multiple fields.
     """
