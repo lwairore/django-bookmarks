@@ -18,8 +18,9 @@
 from django.contrib.auth.models import User
 
 
-class EmailAuthBackend(object):
-    """
+class EmailAuthBackend(object):In the preceding setting, we kept the default ModelBackend that is used to authenticate with username and password and included our own email-based authentication backend. Now, open http://127.0.0.1:8000/account/login/ in your browser. Remember that Django will try to authenticate the user against each of the backends, so now we should be able to log in seamlessly using your username or email account. User credentials will be checked using the ModelBackend authentication backend, and if no user is returned, credentials will be checked using our custom EmailAuthBackend backend.
+
+The order of the backends listed in the AUTHENTICATION_BACKENDS setting matters. If the same credentials are valid for multiple backends, Django will stop at the first backend that successfully authenticates the user.
     Authenticate using an e-mail address.
     """
     def authenticate(self, request, username=None, password=None):
