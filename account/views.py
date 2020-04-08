@@ -51,3 +51,20 @@ def register(request):
     else:
         user_form = forms.UserRegistrationForm()
     return render(request, 'account/register.html',{'user_form': user_form})
+
+
+@login_required
+def edit(request):
+    if request.method == 'POST':
+        user_form = forms.UserEditForm(instance=request.user, data=request.POST)
+        profile_form = forms.ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+    else:
+        user_form = forms.UserEditForm(instance=request.user)
+        profile_form = forms.ProfileEditForm(instance=request.user.profile)
+    return render(request,
+                  'account/edit.html',
+                  {'user_form': user_form,
+                   'profile_form': profile_form})
