@@ -22,10 +22,10 @@ def image_create(request):
             # redirect to new created item detail view
             return redirect(new_item.get_absolute_url())
         
-        else:
-            # build form with data provided by the bookmarklet via GET
-            form = forms.ImageCreateForm(data=request.GET)
-        return render(request,
-                  'images/image/create.html',
-                  {'section': 'images',
-                   'form': form})
+    else:
+        # build form with data provided by the bookmarklet via GET
+        form = forms.ImageCreateForm(data=request.GET)
+    return render(request,
+                'images/image/create.html',
+                {'section': 'images',
+                'form': form})
