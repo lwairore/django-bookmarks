@@ -55,15 +55,21 @@ def register(request):
 
 @login_required
 def edit(request):
+    user_profile = models.Profile.objects.get(user=request.user)
     if request.method == 'POST':
-        user_form = forms.UserEditForm(instance=request.user, data=request.POST)
-        profile_form = forms.ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
+        user_form = forms.UserEditForm(instance=request.user,
+                                 data=request.POST)
+        profile_form = forms.ProfileEditForm(
+                                    instance=user_profile,
+                                    data=request.POST,
+                                    files=request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
     else:
         user_form = forms.UserEditForm(instance=request.user)
-        profile_form = forms.ProfileEditForm(instance=request.user.profile)
+        profile_form = forms.ProfileEditForm(
+                                    instance=user_profile)
     return render(request,
                   'account/edit.html',
                   {'user_form': user_form,
