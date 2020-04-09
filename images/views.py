@@ -5,7 +5,7 @@ from . import forms
 from . import models
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from ..common import decorators
+from common import decorators
 
 # Create your views here.
 @login_required
