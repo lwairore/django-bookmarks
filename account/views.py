@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from common.decorators import ajax_required
+from actions import utils
 
 # Create your views here.
 @ajax_required
@@ -25,6 +26,7 @@ def user_follow(request):
                     user_from=request.user,
                     user_to=user
                 )
+                utils.create_action(request.user, 'is following', user)
             else:
                 models.Contact.objects.filter(
                     user_from=request.user, user_to=user).delete()
@@ -93,6 +95,7 @@ def register(request):
             new_user.save()
             # Create the user profile
             models.Profile.objects.create(user=new_user)
+            utils.create_action(new_user, 'has created an account')
             return render(request,
                           'account/register_done.html',
                           {'new_user': new_user})
