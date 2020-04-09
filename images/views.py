@@ -8,6 +8,7 @@ from django.views.decorators.http import require_POST
 from common import decorators
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from actions import utils
 
 # Create your views here.
 @login_required
@@ -23,6 +24,7 @@ def image_create(request):
             # assign current user to the item
             new_item.user = request.user
             new_item.save()
+            utils.create_action(request.user, 'bookmarked image', new_item)
             messages.success(request, 'Image added successfully')
 
             # redirect to new created item detail view
@@ -36,12 +38,14 @@ def image_create(request):
                   {'section': 'images',
                    'form': form})
 
+
 def image_detail(request, id, slug):
     image = get_object_or_404(models.Image, id=id, slug=slug)
     return render(request,
                   'images/image/detail.html',
                   {'section': 'images',
                    'image': image})
+
 
 @decorators.ajax_required
 @login_required
@@ -54,12 +58,14 @@ def image_like(request):
             image = models.Image.get(id=image_id)
             if action == 'like':
                 image.users_like.add(request.user)
+                utils.create_action(request.user, 'likes', image)
             else:
                 image.users_like.remove(request.user)
             return JsonResponse({'status': 'OK'})
         except:
             pass
     return JsonResponse({'status': 'OK'})
+
 
 @login_required
 def image_list(request):
@@ -84,4 +90,4 @@ def image_list(request):
                       {'section': 'images', 'images': images})
     return render(request,
                   'images/image/list.html',
-                   {'section': 'images', 'images': images}) 
+                  {'section': 'images', 'images': images})
