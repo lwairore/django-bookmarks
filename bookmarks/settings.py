@@ -34,7 +34,7 @@ ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1', '54436aed.ngrok.io']
    By placing our app first in the INSTALLED_APPS setting, we  ensure that our authentication templates will be used by default instead of any other authentication templates contained in other apps. Django looks for templates by order of app appearance in the `INSTALLED_APPS` setting.
 """
 INSTALLED_APPS = [
-    'account.apps.AccountConfig', 
+    'account.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'social_django',
     'images.apps.ImagesConfig',
     'sorl.thumbnail',
-    
+
 ]
 
 MIDDLEWARE = [
@@ -92,7 +92,6 @@ DATABASES = {
         'HOST': '127.0.0.1'
     }
 }
-
 
 
 # Password validation
@@ -156,15 +155,15 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-SOCIAL_AUTH_FACEBOOK_KEY = '2404544943169742' # Facebook App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = '5d25494eef289547cbe18addc4d0cde8' # Facebook App Secret
+SOCIAL_AUTH_FACEBOOK_KEY = '2404544943169742'  # Facebook App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '5d25494eef289547cbe18addc4d0cde8'  # Facebook App Secret
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
-SOCIAL_AUTH_TWITTER_KEY = 'XXX' # Twitter Consumer Key
-SOCIAL_AUTH_TWITTER_SECRET = 'XXX' # Twitter Consumer Secret
+SOCIAL_AUTH_TWITTER_KEY = 'XXX'  # Twitter Consumer Key
+SOCIAL_AUTH_TWITTER_SECRET = 'XXX'  # Twitter Consumer Secret
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'XXX' # Google Consumer Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'XXX' # Google Consumer Secret
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'XXX'  # Google Consumer Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'XXX'  # Google Consumer Secret
 
 
 ABSOLUTE_URL_OVERRIDES = {

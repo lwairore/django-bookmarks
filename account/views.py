@@ -16,6 +16,7 @@ def user_list(request):
                   {'section': 'people',
                    'users': users})
 
+
 @login_required
 def user_detail(request, username):
     user = get_object_or_404(User, username=username, is_active=True)
@@ -36,7 +37,7 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Authenticated '\
+                    return HttpResponse('Authenticated '
                                         'successfully')
                 else:
                     return HttpResponse('Disabled account')
@@ -45,6 +46,7 @@ def user_login(request):
     else:
         form = forms.LoginForm()
     return render(request, 'account/login.html', {'form': form})
+
 
 @login_required
 def dashboard(request):
@@ -67,10 +69,10 @@ def register(request):
             models.Profile.objects.create(user=new_user)
             return render(request,
                           'account/register_done.html',
-                          {'new_user': new_user}) 
+                          {'new_user': new_user})
     else:
         user_form = forms.UserRegistrationForm()
-    return render(request, 'account/register.html',{'user_form': user_form})
+    return render(request, 'account/register.html', {'user_form': user_form})
 
 
 @login_required
@@ -78,11 +80,11 @@ def edit(request):
     user_profile = models.Profile.objects.get(user=request.user)
     if request.method == 'POST':
         user_form = forms.UserEditForm(instance=request.user,
-                                 data=request.POST)
+                                       data=request.POST)
         profile_form = forms.ProfileEditForm(
-                                    instance=user_profile,
-                                    data=request.POST,
-                                    files=request.FILES)
+            instance=user_profile,
+            data=request.POST,
+            files=request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -92,7 +94,7 @@ def edit(request):
     else:
         user_form = forms.UserEditForm(instance=request.user)
         profile_form = forms.ProfileEditForm(
-                                    instance=user_profile)
+            instance=user_profile)
     return render(request,
                   'account/edit.html',
                   {'user_form': user_form,
