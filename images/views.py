@@ -53,9 +53,14 @@ def image_detail(request, id, slug):
 def image_like(request):
     image_id = request.POST.get('id')
     action = request.POST.get('action')
+    print('-' * 10)
+    print('Action is', action)
+    print('Id', image_id)
+    print('-' * 10)
     if image_id and action:
         try:
-            image = models.Image.get(id=image_id)
+            image = models.Image.objects.get(id=image_id)
+            print('Image id', image)
             if action == 'like':
                 image.users_like.add(request.user)
                 utils.create_action(request.user, 'likes', image)
