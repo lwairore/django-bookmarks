@@ -9,6 +9,13 @@ from common import decorators
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from actions import utils
+import redis
+from django.conf import settings
+
+# connect to redis
+r = redis.StrictRedis(host=settings.REDIS_HOST,
+                      port=settings.REDIS_PORT,
+                      db=settings.REDIS_DB)
 
 # Create your views here.
 @login_required
