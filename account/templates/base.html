@@ -1,10 +1,11 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
   <title>{% block title %}{% endblock %}</title>
   <link href="{% static "css/base.css" %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/basenews.css' %}">
 </head>
 
 <body>
@@ -32,7 +33,6 @@
       <a href="{% url "login" %}">Log-in</a>
       {% endif %}
     </span>
-
   </div>
   {% if messages %}
   <ul class="messages">
@@ -48,8 +48,7 @@
     {% block content %}
     {% endblock %}
   </div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <script>
     var csrftoken = Cookies.get('csrftoken');
@@ -64,7 +63,6 @@
         }
       }
     });
-
     $(document).ready(function () {
       {% block domready %}
       {% endblock %}
