@@ -48,10 +48,13 @@ def image_create(request):
 
 def image_detail(request, id, slug):
     image = get_object_or_404(models.Image, id=id, slug=slug)
+    # increment total image views by 1
+    total_views = r.incr('image:{}:views'.format(image.id))
     return render(request,
                   'images/image/detail.html',
                   {'section': 'images',
-                   'image': image})
+                   'image': image,
+                   'total_views': total_views})
 
 
 @decorators.ajax_required
